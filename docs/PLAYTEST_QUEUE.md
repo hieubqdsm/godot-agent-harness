@@ -1,11 +1,11 @@
-# Playtest Queue — detectorx
+# Playtest Queue — {{PROJECT_NAME}}
 
 > Worklist hằng ngày của **tester**. Mỗi feature đến `dev_done`/`playtesting` sẽ được agent đẩy vào đây.
 > Cách report kết quả: xem `docs/WORKFLOW.md` §"Cách TESTER report".
 
 ## Cách chạy một feature để test
 
-1. Đảm bảo ở thư mục repo: `D:\GODOTPRJ\detectorx`.
+1. Đảm bảo đang ở thư mục gốc của repo project (thư mục chứa `docs/` và `project.godot`).
 2. Checkout nhánh feature: `git switch feat/F-xxx-<slug>` (xem cột Branch).
    - Hoặc chạy build/export theo ghi chú riêng của feature.
 3. Mở Godot editor (hoặc `godot --path .`), chạy scene chính.

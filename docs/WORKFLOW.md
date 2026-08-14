@@ -1,4 +1,4 @@
-# Workflow — detectorx
+# Workflow — {{PROJECT_NAME}}
 
 Quy trình làm việc cho phát triển game Godot với **agent AI + dev + tester tay**.
 Mọi state nằm trong file đã commit → bất kỳ AI/dev/tester nào cũng resume được.
@@ -35,6 +35,20 @@ Feature chỉ merge vào `main` khi `auto_test != fail` VÀ `playtest.result == 
 | `docs/PLAYTEST_QUEUE.md` | Worklist hằng ngày của tester | Agent cập nhật, tester dùng |
 | `scripts/status.sh` | In bảng trạng thái live từ frontmatter mọi feature | (chỉ đọc) |
 
+## Kỷ luật state (durable / in-flight / policy)
+
+Mọi thông tin chia 3 loại — **đặt đúng loại vào đúng file**, không trộn lẫn:
+
+| Loại | Là gì | Nằm ở đâu |
+|---|---|---|
+| **Durable (bền vững)** | Fact phải sống qua reload/restart: status feature, kết quả test, commit | Frontmatter `docs/features/F-xxx.md` (đã commit) |
+| **In-flight (đang chạy)** | Trạng thái công việc hiện tại: đang làm feature nào, bước kế tiếp | Frontmatter `docs/SESSION.md` (`current_focus`, `next_action`) |
+| **Policy (luật)** | Quy tắc cố định: điều kiện merge, định nghĩa "pass" | `docs/WORKFLOW.md` (file này) — KHÔNG bao giờ lẫn vào state |
+
+**Invariant — model-visible ⟺ logged:** bất cứ thứ gì agent biết/quyết định **phải nằm trong file đã commit**. Không bao giờ giữ state chỉ trong hội thoại: hết context = mất state. Nếu agent "nhớ" điều gì mà không có trong `docs/`, coi như điều đó không tồn tại.
+
+**Handoff có cấu trúc:** `SESSION.md` là bản handoff có schema (`current_focus`, `next_action`, `done`, `blockers`, `decisions_pending`). Khi kết thúc session, `done:` phải liệt kê việc đã xong **kèm bằng chứng** (commit/file). Không có bằng chứng = coi như chưa làm.
+
 ## Protocol ĐẦU session (resume) — cho bất kỳ ai
 
 Đọc theo thứ tự:
@@ -54,7 +68,7 @@ Agent phải làm trước khi thoát:
 2. Cập nhật `docs/features/F-xxx.md`: `status`, `auto_test`, §Lịch sử thay đổi.
 3. Cập nhật `docs/ROADMAP.md` (hàng feature tương ứng).
 4. Nếu feature tới giai đoạn test → đẩy vào `docs/PLAYTEST_QUEUE.md`.
-5. Ghi `docs/SESSION.md`: `current_focus`, `phase`, `next_action`, `handoff_kind`, blockers.
+5. Ghi `docs/SESSION.md` (handoff có cấu trúc): `current_focus`, `phase`, `next_action`, `handoff_kind`, `done` (evidence kèm commit/file), `blockers`, và `decisions_pending` nếu `handoff_kind: pause`.
 6. Commit các file docs này.
 
 ## Song song hoá (nhiều feature / nhiều người)
