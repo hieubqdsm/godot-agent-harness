@@ -110,6 +110,12 @@ godot --path . -s res://addons/gut/gut_cmdln.gd -gdir=res://tests -gexit
 - Fail → `auto_test: fail`, xem output, sửa, chạy lại.
 - Không có auto test → để `auto_test: none` (vẫn được, playtest là bắt buộc chính).
 
+> **Godot MCP (tuỳ chọn):** nếu client có lắp `@coding-solo/godot-mcp` (xem
+> `docs/MCP.md`), bạn có thể gọi `get_project_info` / `run_project` /
+> `get_debug_output` để có vòng lặp feedback giàu hơn. Nhưng `auto_test` headless
+> vẫn chạy bằng `godot` CLI ở trên — MCP `run_project` chạy debug có cửa sổ,
+> không thay thế headless test.
+
 ## 7. Protocol KẾT THÚC session (BẮT BUỘC trước khi thoát)
 
 1. Commit mọi thay đổi code (1 commit / bước logic).

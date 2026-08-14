@@ -80,6 +80,7 @@ Chi tiết: `docs/WORKFLOW.md`.
 - Godot 4.x
 - Bash (Git Bash trên Windows đi kèm Git for Windows)
 - (tuỳ chọn) [GUT](https://github.com/bitwes/gut) để auto-test headless
+- (tuỳ chọn, khuyến nghị) **Godot MCP** — để agent lái Godot qua MCP: xem [`docs/MCP.md`](docs/MCP.md)
 
 ## Giấy phép
 MIT — xem `LICENSE`.
