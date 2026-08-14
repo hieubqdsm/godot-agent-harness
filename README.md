@@ -4,6 +4,8 @@
 > **agent AI + dev + tester tay**. Mọi trạng thái nằm trong Markdown đã commit
 > → bất kỳ agent / dev / tester nào cũng resume được, không phụ thuộc session AI.
 
+> **Agent AI — đọc trước:** [`AGENTS.md`](AGENTS.md) (protocol vào/kết thúc session, schema frontmatter, kỷ luật).
+
 Tạo ra từ quá trình mượn pattern của các agent harness production-grade:
 **model-visible ⟺ logged** (state luôn nằm trong file, không trong hội thoại),
 **handoff có cấu trúc**, và **phân tách durable / in-flight / policy**.
