@@ -22,12 +22,12 @@ for f in "$DIR"/F-*.md; do
     /^---$/ { fm = !fm; next }
     fm {
       line = $0
-      if (line ~ /^id:/)         { v = line; sub(/^id:[ \t]*/, "", v); id = v }
-      if (line ~ /^name:/)       { v = line; sub(/^name:[ \t]*/, "", v); name = v }
-      if (line ~ /^status:/)     { v = line; sub(/^status:[ \t]*/, "", v); status = v }
-      if (line ~ /^auto_test:/)  { v = line; sub(/^auto_test:[ \t]*/, "", v); at = v }
-      if (line ~ /^branch:/)     { v = line; sub(/^branch:[ \t]*/, "", v); br = v }
-      if (line ~ /^[ \t]+result:/) { v = line; sub(/^[ \t]+result:[ \t]*/, "", v); pt = v }
+      if (line ~ /^id:/)         { v = line; sub(/^id:[ \t]*/, "", v);    sub(/[ \t]+#.*$/, "", v); id = v }
+      if (line ~ /^name:/)       { v = line; sub(/^name:[ \t]*/, "", v);  sub(/[ \t]+#.*$/, "", v); name = v }
+      if (line ~ /^status:/)     { v = line; sub(/^status:[ \t]*/, "", v); sub(/[ \t]+#.*$/, "", v); status = v }
+      if (line ~ /^auto_test:/)  { v = line; sub(/^auto_test:[ \t]*/, "", v); sub(/[ \t]+#.*$/, "", v); at = v }
+      if (line ~ /^branch:/)     { v = line; sub(/^branch:[ \t]*/, "", v); sub(/[ \t]+#.*$/, "", v); br = v }
+      if (line ~ /^[ \t]+result:/) { v = line; sub(/^[ \t]+result:[ \t]*/, "", v); sub(/[ \t]+#.*$/, "", v); pt = v }
     }
     END {
       if (id == "")     id = "?"
