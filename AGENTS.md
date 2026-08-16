@@ -17,13 +17,33 @@ Nguyên tắc cốt lõi: **model-visible ⟺ logged** (xem §5).
    Việc của bạn (nếu được yêu cầu làm game): copy repo này sang thư mục mới,
    chạy `bash scripts/init.sh "<Tên game>"` bên đó rồi làm tiếp. File `TEMPLATE`
    biến mất sau init = repo game hợp lệ, làm tiếp các bước dưới.
-1. Đọc `docs/SESSION.md` → biết `current_focus` + `next_action` + `blockers`.
-2. Đọc `docs/ROADMAP.md` → bức tranh lớn (milestone + bảng feature).
-3. Chạy `bash scripts/status.sh` → bảng `STATUS / AUTO_TEST / PLAYTEST / BRANCH` mọi feature.
-4. Tester → mở thêm `docs/PLAYTEST_QUEUE.md`.
-5. Làm theo `next_action`.
+1. **Đọc `docs/LOCAL.md` (nếu tồn tại)** — câu trả lời setup từ các session trước
+   (đường dẫn godot exe, node, export templates...). Chưa có file này mà bạn cần
+   thông tin máy → làm theo §1b: **HỎI người dùng, đừng tự đi tìm**.
+2. Đọc `docs/SESSION.md` → biết `current_focus` + `next_action` + `blockers`.
+3. Đọc `docs/ROADMAP.md` → bức tranh lớn (milestone + bảng feature).
+4. Chạy `bash scripts/status.sh` → bảng `STATUS / AUTO_TEST / PLAYTEST / BRANCH` mọi feature.
+5. Tester → mở thêm `docs/PLAYTEST_QUEUE.md`.
+6. Làm theo `next_action`.
    - `handoff_kind: planned-next` → làm tiếp luôn.
    - `handoff_kind: pause` → trình bày `decisions_pending`, **chờ người quyết** trước khi làm tiếp.
+
+## 1b. Giao tiếp setup với người dùng (BẮT BUỘC)
+
+Thông tin nằm **trên máy người dùng** (đường dẫn godot exe, export templates đã cài
+chưa, node/python, GPU...) thì xử lý theo thứ tự sau — dừng ở bước đầu tiên ra kết quả:
+
+1. Đọc `docs/LOCAL.md` (session trước đã hỏi rồi).
+2. Kiểm tra nơi chuẩn bằng ≤2 lệnh: `which godot`, biến môi trường `GODOT_PATH`.
+3. Không thấy → **HỎI NGƯỜI DÙNG**. Một câu hỏi = 10 giây của họ, thay cho
+   10 phút scan. Đưa kèm gợi ý (vd "thường là D:\Godot\godot.exe?").
+
+**TUYỆT ĐỐI KHÔNG** `find`/quét đĩa/duyệt "hàng chục TB data" để đoán đường dẫn —
+chậm, ồn, và lục lung tung dữ liệu cá nhân của người dùng.
+
+Nhận được câu trả lời → **ghi ngay vào `docs/LOCAL.md`** (đã gitignore, không push
+path máy lên remote) theo mẫu trong `docs/SETUP.md`. Session sau đọc file này —
+đúng nguyên tắc model-visible ⟺ logged: không ghi = coi như chưa hỏi.
 
 ## 2. Tạo feature mới
 

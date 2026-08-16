@@ -45,6 +45,7 @@ bash scripts/init.sh "Tên Game Của Bạn"
 | `docs/WORKFLOW.md` | Quy trình đầy đủ: vai trò, state machine, protocol đầu/cuối session, kỷ luật state |
 | `docs/ROADMAP.md` | Plan tổng thể: milestone + bảng feature |
 | `docs/SESSION.md` | **Entry point resume** — việc hiện tại + kế tiếp (handoff có cấu trúc) |
+| `docs/SETUP.md` | Chuẩn hỏi-user cấu hình máy + format `docs/LOCAL.md` (gitignored) |
 | `docs/PLAYTEST_QUEUE.md` | Worklist hằng ngày của tester |
 | `docs/features/F-xxx.md` | 1 feature / file. Frontmatter = nguồn sự thật |
 | `docs/features/_TEMPLATE.md` | Mẫu tạo feature mới (copy → `F-00X.md`) |
