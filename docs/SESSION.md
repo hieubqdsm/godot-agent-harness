@@ -8,7 +8,7 @@ phase: planned                 # planned | dev | paused | done
 branch: main
 handoff_kind: planned-next     # planned-next = làm tiếp luôn | pause = chờ người quyết
 current_focus: none            # id feature đang làm, hoặc "none"
-next_action: "Khởi tạo project Godot (project.godot) + chốt mô tả game & milestone M0 trong docs/ROADMAP.md, rồi tạo feature F-001 đầu tiên (copy docs/features/_TEMPLATE.md)."
+next_action: "Nếu file TEMPLATE còn ở gốc: đây là BẢN TEMPLATE — tạo repo game mới (copy template + bash scripts/init.sh '<Tên>') chứ không dev tại đây. Nếu đã init: khởi tạo project.godot ở gốc repo + chốt mô tả game & milestone M0 trong docs/ROADMAP.md, rồi tạo F-001."
 
 # Evidence — việc ĐÃ xong trong session này, kèm bằng chứng (commit/file).
 # Không có bằng chứng = coi như chưa làm. (Ralph-handoff: evidence field)

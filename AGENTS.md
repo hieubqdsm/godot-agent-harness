@@ -12,6 +12,11 @@ Nguyên tắc cốt lõi: **model-visible ⟺ logged** (xem §5).
 
 ## 1. Protocol VÀO session (làm ngay theo thứ tự)
 
+0. **Kiểm tra template hay game repo:** nếu file `TEMPLATE` còn ở gốc repo →
+   đây là BẢN TEMPLATE. **KHÔNG dev game / không tạo project.godot tại đây.**
+   Việc của bạn (nếu được yêu cầu làm game): copy repo này sang thư mục mới,
+   chạy `bash scripts/init.sh "<Tên game>"` bên đó rồi làm tiếp. File `TEMPLATE`
+   biến mất sau init = repo game hợp lệ, làm tiếp các bước dưới.
 1. Đọc `docs/SESSION.md` → biết `current_focus` + `next_action` + `blockers`.
 2. Đọc `docs/ROADMAP.md` → bức tranh lớn (milestone + bảng feature).
 3. Chạy `bash scripts/status.sh` → bảng `STATUS / AUTO_TEST / PLAYTEST / BRANCH` mọi feature.

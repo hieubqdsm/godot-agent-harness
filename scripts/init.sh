@@ -21,6 +21,9 @@ DATE="$(date +%Y-%m-%d)"
 SELF='./scripts/init.sh'
 echo "→ Đặt tên project: $NAME (ngày $DATE)"
 
+# Xoá marker template — từ điểm này repo là một game repo hợp lệ.
+rm -f ./TEMPLATE
+
 hit=0
 while IFS= read -r -d '' f; do
   if grep -qF -e '{{PROJECT_NAME}}' -e '{{DATE}}' "$f"; then
