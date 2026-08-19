@@ -2,6 +2,7 @@
 
 > Agent đọc file này khi cần thông tin nằm trên máy người dùng.
 > Quy tắc giao tiếp: xem `AGENTS.md` §1b. Ngắn gọn: LOCAL.md → which/env → HỎI.
+> **Hỏi = tin nhắn chat thường rồi chờ trả lời** — không dùng select-list/hộp chọn.
 > **Không tự scan đĩa tìm đường dẫn.**
 
 ## Vì sao

@@ -38,6 +38,13 @@ chưa, node/python, GPU...) thì xử lý theo thứ tự sau — dừng ở bư
 3. Không thấy → **HỎI NGƯỜI DÙNG**. Một câu hỏi = 10 giây của họ, thay cho
    10 phút scan. Đưa kèm gợi ý (vd "thường là D:\Godot\godot.exe?").
 
+**Cách hỏi: tin nhắn chat thường.** Gửi câu hỏi bằng text thường trong chat,
+kèm gợi ý, rồi **kết thúc lượt và chờ người dùng gõ câu trả lời trực tiếp**.
+**TUYỆT ĐỐI KHÔNG** dùng tool hỏi dạng select-list / hộp chọn / multiple-choice
+(bắt bấm chọn sẵn hoặc phải bấm "Other" mới gõ được text) — cứ câu hỏi nào
+cũng bị ép qua khung chọn là phiền hơn chat thường. Câu trả lời tự do
+(đường dẫn, version...) gõ thẳng trong chat là nhanh nhất.
+
 **TUYỆT ĐỐI KHÔNG** `find`/quét đĩa/duyệt "hàng chục TB data" để đoán đường dẫn —
 chậm, ồn, và lục lung tung dữ liệu cá nhân của người dùng.
 
@@ -165,6 +172,7 @@ godot --path . -s res://addons/gut/gut_cmdln.gd -gdir=res://tests -gexit
 ## 9. Đừng
 
 - ❌ Giữ state trong hội thoại thay vì file.
+- ❌ Hỏi người dùng qua select-list/hộp chọn — hỏi bằng chat thường (§1b).
 - ❌ Ghi `playtest.result` thay tester.
 - ❌ Merge `main` khi feature chưa `playtest.result == pass`.
 - ❌ Đổi `status`/`auto_test` mà không commit + cập nhật `ROADMAP` + `SESSION` đi kèm.
