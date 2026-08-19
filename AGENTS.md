@@ -10,6 +10,22 @@ Nguyên tắc cốt lõi: **model-visible ⟺ logged** (xem §5).
 
 ---
 
+## 0. HARD RULES — luật cao nhất (mâu thuẫn § nào thì §0 thắng)
+
+1. **Hỏi = chat thường.** KHÔNG dùng tool hỏi dạng select-list / hộp chọn /
+   multiple-choice. Gửi câu hỏi bằng text thường rồi **kết thúc lượt**, chờ
+   người dùng gõ câu trả lời (chi tiết: §1b).
+2. **Godot HEADLESS ONLY.** KHÔNG BAO GIỜ mở cửa sổ Godot trên máy người dùng:
+   không chạy game có window, không `godot -e` mở editor, không MCP
+   `run_project` / `launch_editor` — **trừ khi người dùng ra lệnh rõ ràng bằng
+   chữ** trong session ("mở editor đi", "chạy thử cho tôi xem"). Mọi lệnh
+   godot bạn tự chạy phải có `--headless` (§6).
+3. **Thiếu thông tin / chưa có kế hoạch → DỪNG.** Câu hỏi đã gửi mà chưa có
+   trả lời (vd chưa có `godot_exe`) thì KHÔNG đoán, KHÔNG scan đĩa, KHÔNG tự
+   làm phần khác "rồi tính sau". Kết thúc lượt, ghi blocker vào
+   `SESSION.blockers`, chờ người dùng. Chưa có godot exe = chưa chạy được gì
+   đáng kể — đó là lúc hỏi, không phải lúc tự thử.
+
 ## 1. Protocol VÀO session (làm ngay theo thứ tự)
 
 0. **Kiểm tra template hay game repo:** nếu file `TEMPLATE` còn ở gốc repo →
@@ -38,8 +54,9 @@ chưa, node/python, GPU...) thì xử lý theo thứ tự sau — dừng ở bư
 3. Không thấy → **HỎI NGƯỜI DÙNG**. Một câu hỏi = 10 giây của họ, thay cho
    10 phút scan. Đưa kèm gợi ý (vd "thường là D:\Godot\godot.exe?").
 
-**Cách hỏi: tin nhắn chat thường.** Gửi câu hỏi bằng text thường trong chat,
-kèm gợi ý, rồi **kết thúc lượt và chờ người dùng gõ câu trả lời trực tiếp**.
+**Cách hỏi: tin nhắn chat thường (HARD RULE §0.1).** Gửi câu hỏi bằng text
+thường trong chat, kèm gợi ý, rồi **kết thúc lượt và chờ người dùng gõ câu
+trả lời trực tiếp**.
 **TUYỆT ĐỐI KHÔNG** dùng tool hỏi dạng select-list / hộp chọn / multiple-choice
 (bắt bấm chọn sẵn hoặc phải bấm "Other" mới gõ được text) — cứ câu hỏi nào
 cũng bị ép qua khung chọn là phiền hơn chat thường. Câu trả lời tự do
@@ -131,11 +148,11 @@ decisions_pending: []      # chỉ bắt buộc khi handoff_kind: pause
 Khi feature có thể test tự động, chạy headless rồi đặt `auto_test`:
 
 ```sh
-# Cả project (scene chính):
-godot --path . --quit            # khởi + quit để check lỗi khởi tạo
+# Cả project (scene chính) — LUÔN có --headless, không bao giờ mở cửa sổ (§0.2):
+godot --headless --path . --quit   # khởi + quit để check lỗi khởi tạo
 
 # GUT (nếu cài https://github.com/bitwes/gut):
-godot --path . -s res://addons/gut/gut_cmdln.gd -gdir=res://tests -gexit
+godot --headless --path . -s res://addons/gut/gut_cmdln.gd -gdir=res://tests -gexit
 ```
 
 - Pass → `auto_test: pass` + ghi lệnh đã chạy vào §"Cách test tự động" của feature.
@@ -143,10 +160,10 @@ godot --path . -s res://addons/gut/gut_cmdln.gd -gdir=res://tests -gexit
 - Không có auto test → để `auto_test: none` (vẫn được, playtest là bắt buộc chính).
 
 > **Godot MCP (tuỳ chọn):** nếu client có lắp `@coding-solo/godot-mcp` (xem
-> `docs/MCP.md`), bạn có thể gọi `get_project_info` / `run_project` /
-> `get_debug_output` để có vòng lặp feedback giàu hơn. Nhưng `auto_test` headless
-> vẫn chạy bằng `godot` CLI ở trên — MCP `run_project` chạy debug có cửa sổ,
-> không thay thế headless test.
+> `docs/MCP.md`), bạn có thể gọi `get_project_info` / `get_debug_output` để có
+> vòng lặp feedback giàu hơn. Auto-test vẫn chạy bằng `godot --headless` CLI
+> ở trên. `run_project` / `launch_editor` mở cửa sổ Godot trên máy người dùng
+> → **HARD RULE §0.2: KHÔNG tự gọi**, chỉ khi người dùng yêu cầu.
 
 ## 7. Protocol KẾT THÚC session (BẮT BUỘC trước khi thoát)
 
@@ -166,13 +183,16 @@ godot --path . -s res://addons/gut/gut_cmdln.gd -gdir=res://tests -gexit
 | `bash scripts/status.sh` | xem trạng thái live mọi feature (đầu session) |
 | `bash scripts/init.sh "<Tên>"` | **chỉ 1 lần** khi mới pull harness về (đặt tên project) |
 | `git switch -c feat/F-xxx-<slug>` | tạo nhánh feature |
-| `godot --path . -e` | mở editor |
-| `godot --path . -s <script>` | chạy scene/test headless |
+| `godot --headless --path . --quit` | smoke test khởi tạo, không cửa sổ |
+| `godot --headless --path . -s <script>` | chạy scene/test headless |
+| `godot --path . -e` | mở editor — **CHỈ khi người dùng yêu cầu** (§0.2) |
 
 ## 9. Đừng
 
 - ❌ Giữ state trong hội thoại thay vì file.
-- ❌ Hỏi người dùng qua select-list/hộp chọn — hỏi bằng chat thường (§1b).
+- ❌ Hỏi người dùng qua select-list/hộp chọn — hỏi bằng chat thường (§0.1).
+- ❌ Mở cửa sổ Godot (editor / chạy game / MCP `run_project` / `launch_editor`) khi người dùng chưa yêu cầu — headless only (§0.2).
+- ❌ Đang chờ trả lời / thiếu thông tin (chưa có godot exe, chưa chốt kế hoạch) mà vẫn tự làm tiếp — dừng và chờ (§0.3).
 - ❌ Ghi `playtest.result` thay tester.
 - ❌ Merge `main` khi feature chưa `playtest.result == pass`.
 - ❌ Đổi `status`/`auto_test` mà không commit + cập nhật `ROADMAP` + `SESSION` đi kèm.

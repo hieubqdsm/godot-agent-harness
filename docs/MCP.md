@@ -2,8 +2,9 @@
 
 > Harness này **chạy được không cần MCP** (agent dùng `godot` CLI — xem `AGENTS.md` §6).
 > Nhưng nếu agent client của bạn hỗ trợ MCP, lắp Godot MCP server để agent
-> tạo scene/node, chạy project và **đọc debug output trực tiếp** — vòng lặp
-> feedback tốt hơn nhiều. Đây là cách harness này được thiết kế để dùng.
+> tạo scene/node và **đọc debug output trực tiếp** — vòng lặp feedback tốt hơn nhiều.
+> **HARD RULE (`AGENTS.md` §0.2):** tool mở cửa sổ (`run_project`,
+> `launch_editor`) KHÔNG được agent tự gọi — chỉ khi người dùng yêu cầu rõ ràng.
 
 ## Server
 
@@ -15,8 +16,8 @@
 | `get_godot_version` | Lấy version Godot đã cài |
 | `list_projects` | Tìm project Godot trong một thư mục |
 | `get_project_info` | Metadata + cấu trúc project |
-| `launch_editor` | Mở Godot editor cho project |
-| `run_project` | Chạy project (debug mode) |
+| `launch_editor` | ⚠️ Mở cửa sổ editor — CHỈ khi người dùng yêu cầu (`AGENTS.md` §0.2) |
+| `run_project` | ⚠️ Chạy project có cửa sổ — CHỈ khi người dùng yêu cầu (`AGENTS.md` §0.2) |
 | `stop_project` | Dừng project đang chạy |
 | `get_debug_output` | Lấy console output + error |
 | `create_scene` | Tạo scene mới (chọn root node type) |
@@ -100,7 +101,8 @@ Trả kết quả = MCP đã sống. Lỗi/không thấy tool = xem mục dướ
 ## Quan hệ với workflow harness
 
 - MCP chỉ là **cách agent lái Godot**. **State vẫn nằm trong markdown** (SESSION / features) — không thay đổi.
-- `auto_test` headless trong `AGENTS.md` §6 **vẫn dùng `godot` CLI** (GUT headless). MCP `run_project` chạy debug có cửa sổ — dùng để debug/playtest nhanh, **không thay thế** headless test tự động.
+- `auto_test` headless trong `AGENTS.md` §6 **vẫn dùng `godot --headless` CLI** (GUT headless) — MCP không thay thế.
+- **HARD RULE (`AGENTS.md` §0.2):** `launch_editor` / `run_project` mở cửa sổ Godot trên máy người dùng. Agent **KHÔNG TỰ GỌI** — chỉ khi người dùng yêu cầu rõ ràng trong session. Tự debug → `godot --headless`.
 - Thiếu MCP: agent vẫn dev bình thường qua CLI. Có MCP: vòng lặp agent↔Godot chặt hơn.
 
 ## Link

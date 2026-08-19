@@ -33,7 +33,7 @@ bash scripts/init.sh "Tên Game Của Bạn"
 
 **Khởi động dev:**
 1. `git add -A && git commit -m "init project"`
-2. Tạo `project.godot`: mở Godot → New Project tại thư mục này (hoặc `godot --path . -e`).
+2. Tạo `project.godot` (bước cho **người dùng**): mở Godot → New Project tại thư mục này (hoặc `godot --path . -e`). Nếu bạn là agent: ghi file `project.godot` trực tiếp bằng text, **không mở editor** (`AGENTS.md` §0.2).
 3. Đọc `docs/SESSION.md` → làm theo `next_action`.
 
 > Xong `init.sh` có thể xoá đi nếu muốn (chỉ dùng 1 lần).

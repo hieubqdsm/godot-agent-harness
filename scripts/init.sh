@@ -41,7 +41,8 @@ cat <<EOF
 
 ✓ Xong. Bước tiếp theo:
   1. git init && git add -A && git commit -m "init project: $NAME"
-  2. Tạo project Godot: mở Godot → New Project tại thư mục này (hoặc: godot --path . -e)
-     để sinh project.godot.
+  2. Tạo project Godot (NGƯỜI DÙNG làm): mở Godot → New Project tại thư mục này
+     (hoặc: godot --path . -e) để sinh project.godot. Agent: ghi file trực tiếp,
+     KHÔNG mở editor (AGENTS.md §0.2).
   3. Đọc docs/SESSION.md và làm theo next_action.
 EOF
