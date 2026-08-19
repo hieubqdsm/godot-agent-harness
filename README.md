@@ -38,6 +38,32 @@ bash scripts/init.sh "Tên Game Của Bạn"
 
 > Xong `init.sh` có thể xoá đi nếu muốn (chỉ dùng 1 lần).
 
+### Cập nhật harness cho repo game đã sinh từ template
+
+Template có bản vá mới (vd hard rules) mà repo game muốn nhận? Đừng copy tay
+từng file — dùng git:
+
+```sh
+cd ten-game
+git remote add template https://github.com/hieubqdsm/godot-agent-harness.git   # 1 lần
+git fetch template
+
+# Chỉ kéo các file HARNESS (repo game không cá nhân hoá):
+git checkout template/main -- \
+  AGENTS.md README.md LICENSE docs/MCP.md docs/SETUP.md docs/WORKFLOW.md \
+  scripts/status.sh scripts/init.sh
+
+git commit -m "sync harness từ template"
+```
+
+- Các file harness nói trên nhận **nguyên bản** mới nhất của template — kể cả
+  khi repo game được sinh từ bản template cũ bao nhiêu đi nữa.
+- **Không** checkout `docs/SESSION.md`, `docs/ROADMAP.md`, `docs/features/`,
+  `docs/PLAYTEST_QUEUE.md`, `docs/LOCAL.md` — đó là state riêng của game.
+- Muốn giữ lịch sử đẹp (repo sinh từ bản template gần đây): `git cherry-pick`
+  các commit template (vd `cf60610 a5e2e21`) thay vì checkout; conflict thì
+  giải thủ công.
+
 ## Bạn nhận được gì
 
 | File | Vai trò |
